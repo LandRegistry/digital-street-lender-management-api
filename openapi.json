@@ -1,436 +1,330 @@
 {
-    "openapi": "3.0.2",
-    "info": {
-      "version": "0.1.0",
-      "title": "Lender Management API",
-      "description": "HM Land Registry Digital Street Proof of Concept",
-      "contact": {
-        "name": "HM Land Registry"
-      },
-      "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
-      }
+  "openapi": "3.0.2",
+  "info": {
+    "version": "0.1.0",
+    "title": "Lender Management API",
+    "description": "HM Land Registry Digital Street Proof of Concept",
+    "contact": {
+      "name": "HM Land Registry"
     },
-    "paths": {
-      "/restrictions": {
-        "get": {
-          "summary": "Retrieve a list of Restrictions",
-          "operationId": "get_restrictions",
-          "tags": [
-            "Restrictions"
-          ],
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/RestrictionType"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Expected response to a valid request",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Restriction"
-                    }
-                  }
-                }
-              }
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Retrieve a list of Users",
+        "operationId": "get_users",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "email_address",
+            "in": "query",
+            "description": "The email address to filter by",
+            "schema": {
+              "type": "string"
             },
-            "500": {
-              "$ref": "#/components/responses/500"
-            }
+            "example": "john.doe@example.com"
           }
-        }
-      },
-      "/restrictions/{restriction_id}": {
-        "get": {
-          "summary": "Retrieve a specific Restriction",
-          "operationId": "get_restriction",
-          "tags": [
-            "Restrictions"
-          ],
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/RestrictionId"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Expected response to a valid request",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Restriction"
-                  }
-                }
-              }
-            },
-            "500": {
-              "$ref": "#/components/responses/500"
-            }
-          }
-        }
-      },
-      "/users": {
-        "get": {
-          "summary": "Retrieve a list of Users",
-          "operationId": "get_users",
-          "tags": [
-            "Users"
-          ],
-          "parameters": [
-            {
-              "name": "email_address",
-              "in": "query",
-              "description": "The email address to filter by",
-              "schema": {
-                "type": "string"
-              },
-              "example": "john.doe@example.com"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Expected response to a valid request",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
-              }
-            },
-            "500": {
-              "description": "Internal Server Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "post": {
-          "summary": "Create a new User",
-          "operationId": "create_user",
-          "tags": [
-            "Users"
-          ],
-          "requestBody": {
-            "description": "New User data to create",
-            "required": true,
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
                 }
               }
             }
           },
-          "responses": {
-            "201": {
-              "description": "Newly created User",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              },
-              "links": {
-                "GetUserByIdentity": {
-                  "$ref": "#/components/links/GetUserByIdentity"
-                },
-                "UpdateUserByIdentity": {
-                  "$ref": "#/components/links/UpdateUserByIdentity"
-                }
-              }
-            },
-            "500": {
-              "description": "Internal Server Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/users/{identity}": {
-        "get": {
-          "summary": "Retrieve a specific User",
-          "operationId": "get_user",
-          "tags": [
-            "Users"
-          ],
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/Identity"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Expected response to a valid request",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              },
-              "links": {
-                "UpdateUserByIdentity": {
-                  "$ref": "#/components/links/UpdateUserByIdentity"
-                }
-              }
-            },
-            "500": {
-              "description": "Internal Server Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "put": {
-          "summary": "Update a specific User",
-          "operationId": "update_user",
-          "tags": [
-            "Users"
-          ],
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/Identity"
-            }
-          ],
-          "requestBody": {
-            "description": "User data to update",
-            "required": true,
+          "500": {
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/Error"
                 }
               }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Expected response to a valid request",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              },
-              "links": {
-                "GetUserByIdentity": {
-                  "$ref": "#/components/links/GetUserByIdentity"
-                }
-              }
-            },
-            "500": {
-              "description": "Internal Server Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "components": {
-      "schemas": {
-        "Restriction": {
-          "required": [
-            "restriction_id",
-            "restriction_type",
-            "restriction_text"
-          ],
-          "properties": {
-            "restriction_id": {
-              "type": "string"
-            },
-            "restriction_type": {
-              "type": "string",
-              "enum": [
-                "ORES",
-                "CBCR"
-              ],
-              "example": "CBCR"
-            },
-            "restriction_text": {
-              "type": "string",
-              "example": "A string of text containing infills. This restriction is of type **RT** and was created at **RD**."
-            }
-          }
-        },
-        "User": {
-          "required": [
-            "identity",
-            "first_name",
-            "last_name",
-            "email_address",
-            "phone_number",
-            "address"
-          ],
-          "properties": {
-            "identity": {
-              "type": "integer",
-              "format": "int32",
-              "description": "Number to uniquely identify people across organisations"
-            },
-            "first_name": {
-              "type": "string",
-              "example": "Natasha"
-            },
-            "last_name": {
-              "type": "string",
-              "example": "Powell"
-            },
-            "email_address": {
-              "type": "string",
-              "format": "email",
-              "example": "natasha.powell@example.com"
-            },
-            "phone_number": {
-              "type": "string",
-              "example": "07700900123"
-            },
-            "address": {
-              "$ref": "#/components/schemas/UserAddress"
-            }
-          }
-        },
-        "UserAddress": {
-          "required": [
-            "house_name_number",
-            "street",
-            "town_city",
-            "county",
-            "country",
-            "postcode"
-          ],
-          "properties": {
-            "house_name_number": {
-              "type": "string",
-              "example": 143
-            },
-            "street": {
-              "type": "string",
-              "example": "Cowgate"
-            },
-            "town_city": {
-              "type": "string",
-              "example": "Edinburgh"
-            },
-            "county": {
-              "type": "string",
-              "example": "Midlothian"
-            },
-            "country": {
-              "type": "string",
-              "example": "Scotland"
-            },
-            "postcode": {
-              "type": "string",
-              "example": "EH1 1JS"
-            }
-          }
-        },
-        "Error": {
-          "required": [
-            "code",
-            "message"
-          ],
-          "properties": {
-            "code": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "message": {
-              "type": "string"
             }
           }
         }
       },
-      "parameters": {
-        "RestrictionId": {
-          "name": "restriction_id",
-          "in": "path",
+      "post": {
+        "summary": "Create a new User",
+        "operationId": "create_user",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "description": "New User data to create",
           "required": true,
-          "description": "The ID of a Restriction",
-          "schema": {
-            "$ref": "#/components/schemas/Restriction/properties/restriction_id"
-          }
-        },
-        "RestrictionType": {
-          "name": "type",
-          "in": "query",
-          "description": "The ID of a Restriction",
-          "schema": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Restriction/properties/restriction_type"
-            }
-          }
-        },
-        "Identity": {
-          "name": "identity",
-          "in": "path",
-          "required": true,
-          "description": "The user identity of a User",
-          "schema": {
-            "$ref": "#/components/schemas/User/properties/identity"
-          }
-        }
-      },
-      "responses": {
-        "500": {
-          "description": "Internal Server Error",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Error"
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Newly created User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "links": {
+              "GetUserByIdentity": {
+                "$ref": "#/components/links/GetUserByIdentity"
+              },
+              "UpdateUserByIdentity": {
+                "$ref": "#/components/links/UpdateUserByIdentity"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{identity}": {
+      "get": {
+        "summary": "Retrieve a specific User",
+        "operationId": "get_user",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Identity"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "links": {
+              "UpdateUserByIdentity": {
+                "$ref": "#/components/links/UpdateUserByIdentity"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
               }
             }
           }
         }
       },
-      "links": {
-        "GetUserByIdentity": {
-          "operationId": "get_user",
-          "parameters": {
-            "identity": "$response.body#/identity"
+      "put": {
+        "summary": "Update a specific User",
+        "operationId": "update_user",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Identity"
+          }
+        ],
+        "requestBody": {
+          "description": "User data to update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
           }
         },
-        "UpdateUserByIdentity": {
-          "operationId": "update_user",
-          "parameters": {
-            "identity": "$response.body#/identity"
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "links": {
+              "GetUserByIdentity": {
+                "$ref": "#/components/links/GetUserByIdentity"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": [
+          "identity",
+          "first_name",
+          "last_name",
+          "email_address",
+          "phone_number",
+          "address"
+        ],
+        "properties": {
+          "identity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number to uniquely identify people across organisations"
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Natasha"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Powell"
+          },
+          "email_address": {
+            "type": "string",
+            "format": "email",
+            "example": "natasha.powell@example.com"
+          },
+          "phone_number": {
+            "type": "string",
+            "example": "07700900123"
+          },
+          "address": {
+            "$ref": "#/components/schemas/UserAddress"
+          }
+        }
+      },
+      "UserAddress": {
+        "required": [
+          "house_name_number",
+          "street",
+          "town_city",
+          "county",
+          "country",
+          "postcode"
+        ],
+        "properties": {
+          "house_name_number": {
+            "type": "string",
+            "example": 143
+          },
+          "street": {
+            "type": "string",
+            "example": "Cowgate"
+          },
+          "town_city": {
+            "type": "string",
+            "example": "Edinburgh"
+          },
+          "county": {
+            "type": "string",
+            "example": "Midlothian"
+          },
+          "country": {
+            "type": "string",
+            "example": "Scotland"
+          },
+          "postcode": {
+            "type": "string",
+            "example": "EH1 1JS"
+          }
+        }
+      },
+      "Error": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "Identity": {
+        "name": "identity",
+        "in": "path",
+        "required": true,
+        "description": "The user identity of a User",
+        "schema": {
+          "$ref": "#/components/schemas/User/properties/identity"
+        }
+      }
+    },
+    "responses": {
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
+    "links": {
+      "GetUserByIdentity": {
+        "operationId": "get_user",
+        "parameters": {
+          "identity": "$response.body#/identity"
+        }
+      },
+      "UpdateUserByIdentity": {
+        "operationId": "update_user",
+        "parameters": {
+          "identity": "$response.body#/identity"
+        }
+      }
+    }
   }
-  
+}

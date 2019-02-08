@@ -1,9 +1,3 @@
-
-INSERT INTO "restriction" (restriction_id, restriction_type, restriction_text)
-VALUES	('BX102', 'CBCR', 'RESTRICTION: No disposition of the registered estate by the proprietor of the registered estate is to be registered without a written consent signed by the proprietor for the time being of the Charge dated *CD* in favour of *CP* referred to in the Charges Register.'),
-		('BX750', 'ORES', 'RESTRICTION: No disposition by the proprietor of the registered estate to which section 36 or section 38 of the Charities Act 1993 applies is to be registered unless the instrument contains a certificate complying with section 37(2) or section 39(2) of that Act as appropriate.');
-
-
 INSERT INTO "address" (address_id, house_name_number, street, town_city, county, country, postcode)
 VALUES	(1, '1', 'Digital Street', 'Bristol', 'Bristol', 'England', 'BS2 8EN'),
 

@@ -6,6 +6,10 @@
 |---|---|
 |**GET** /health|Returns some basic information about the app (JSON)|
 |**GET** /health/cascade/\<depth\>|Returns the app's health information as above but also the health information of any database and HTTP dependencies, down to the specified depth (JSON)|
+|**GET** /users|Returns a list of users in the conveyancer's management system (JSON)|
+|**POST** /users|Creates a new user in the conveyancer's management system (JSON)|
+|**GET** /users/\<identity\>|Returns a user with the specified id. (JSON)|
+|**PUT** /users/\<identity\>|Modifies a user with the specified id. (JSON)|
 
 ## Quick start
 
@@ -15,7 +19,7 @@ This app supports the Land Registry [common development environment](https://git
 
 ```YAML
   lender-management-api:
-    repo: git@github.com:LandRegistry/digital-street-lender-management-api.git
+    repo: https://github.com/LandRegistry/digital-street-lender-management-api.git
     branch: master
 ```
 
