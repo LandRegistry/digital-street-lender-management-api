@@ -211,9 +211,8 @@
         ],
         "properties": {
           "identity": {
-            "type": "integer",
-            "format": "int32",
-            "description": "Number to uniquely identify people across organisations"
+            "type": "string",            
+            "description": "String to uniquely identify people across organisations"
           },
           "first_name": {
             "type": "string",
